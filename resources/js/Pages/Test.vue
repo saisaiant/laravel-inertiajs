@@ -3,14 +3,14 @@
     <button @click="count++">+</button>
     {{ count }}
     <button @click="count--">-</button>
-    <Link href="test">Test</Link>
-    <Link href="about">About</Link>
+    <br />
+    <Footer />
 </template>
 
 <script setup>
 import { Link } from '@inertiajs/vue3'
 import { ref } from "vue";
-
+import Footer from './Footer.vue'
 const count = ref(0)
 </script>
 
