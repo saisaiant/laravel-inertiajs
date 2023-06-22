@@ -1,15 +1,12 @@
 <template>
-    Home
-    <button @click="count++">+</button>
-    {{ count }}
-    <button @click="count--">-</button>
+    <MonitorList :monitors="monitors" />
 </template>
 
 
 
 <script setup>
-import { ref } from "vue";
-const count = ref(0)
+import MonitorList from "@/components/home/MonitorList.vue"
+defineProps(['monitors'])
 </script>
 
 <style>
