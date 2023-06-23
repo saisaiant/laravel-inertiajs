@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+        <nav class="mb-10 isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
             <Link :href="prev"
                 :class="prev === null ? 'text-gray-100 cursor-default' : 'text-gray-400 cursor-pointer hover:bg-gray-50 focus:z-20 focus:outline-offset-0'"
                 class="relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset ring-gray-300">
