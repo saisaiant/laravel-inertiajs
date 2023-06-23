@@ -2,7 +2,7 @@
     <Head title="Inertia Js"></Head>
     <Navbar />
     <slot></slot>
-    <Footer />
+    <!-- <Footer /> -->
 </template>
 <script setup>
 import Navbar from '@/components/Navbar.vue'
