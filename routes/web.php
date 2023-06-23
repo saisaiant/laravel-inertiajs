@@ -11,7 +11,7 @@ Route::get('/', function () {
 Route::get('home', function() {
     $monitors = Monitor::all();
     return Inertia::render('Home', [
-        'monitors' => $monitors
+        'monitors' => $monitors,
     ]);
 });
 
