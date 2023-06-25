@@ -13,8 +13,11 @@
                     <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                     <div class="mt-2">
                         <input v-model="form.email" id="email" name="email" type="email" autocomplete="email"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            @input="handleInput"
+                            />
                     </div>
+                    <small class="text-red-500" v-if="form.errors.email">{{ form.errors.email }}</small>
                 </div>
 
                 <div>
@@ -26,15 +29,21 @@
                     </div>
                     <div class="mt-2">
                         <input v-model="form.password" id="password" name="password" type="password" autocomplete="current-password"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" @input="handleInput" />
                     </div>
+                    <small class="text-red-500" v-if="form.errors.password">{{ form.errors.password }}</small>
                 </div>
 
                 <div>
-                    <Link href="/auth/login" method="post" as="button" type="submit"
+                    <!-- <Link href="/auth/login" method="post" as="button" type="submit"
                         :data="form"
-                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-                        in</Link>
+                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"> -->
+                        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        :disabled="form.processing"
+                        >
+                            Sign in
+                        </button>
+                    <!-- </Link> -->
                 </div>
             </form>
         </div>
@@ -43,11 +52,21 @@
 <script setup>
 import {Link} from '@inertiajs/vue3'
 import { reactive } from 'vue';
-const form = reactive({
+import { useForm } from '@inertiajs/vue3'
+
+// defineProps(['errors'])
+const form = useForm({
     email: '',
     password: ''
 })
 const handleSubmit = () => {
-    console.log('hello');
+    form.post('/auth/login', {
+        preserveScroll: true,
+        onSuccess: () => form.reset('password'),
+    })
+}
+
+const handleInput = (e) => {
+    form.clearErrors(e.target.name);
 }
 </script>
